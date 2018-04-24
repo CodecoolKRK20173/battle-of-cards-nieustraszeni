@@ -5,12 +5,12 @@ import java.util.List;
 public class Deck {
     private List<Card> deck = new ArrayList<>();
     private List<Card> playerHandDeck = new ArrayList<>();
-    private final int HALF_SIZE_OF_DECK = 26;
+    private final int HALF_SIZE_OF_DECK = 12;
 
 
     public List<Card> createNewDeck(){
         for (int suit = 1; suit < 5; suit++){
-            for (int rank = 1; rank < 14; rank++){
+            for (int rank = 1; rank < 7; rank++){
                 if (suit == 1 || suit == 2)
                     deck.add(new Card(suit, rank, true, "red"));
                 else
