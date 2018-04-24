@@ -1,13 +1,13 @@
 
 public class Card {
-    private String suit;
+    private int suit;
     private int rank;
     private boolean faceDown;
     // private String status;
     private int color;
 
-    
-    public Card(String suit, int rank, boolean faceDown, int color){
+
+    public Card(int suit, int rank, boolean faceDown, int color){
         this.suit = suit;
         this.rank = rank;
         this.color = color;
