@@ -1,3 +1,4 @@
+import java.awt.List;
 import java.util.ArrayList;
 
 public class Game {
@@ -21,8 +22,34 @@ public class Game {
         return true;
     }
 
+
+    public roundOfGame(){
+        // create conditions to start round
+    }
+
+
     public evaluableRound(){
         // create conditions to win round or fight
+    }
+
+
+    public void playGame(){
+        boolean gameRun = true;
+
+        while (gameRun){
+            if (player1Deck.size() == 0 || player2Deck.size() == 0){
+                if (isGameWon() == true){
+                    System.out.println("You win the game!");
+                    gameRun = false;
+                } else {
+                    System.out.println("You lose the game!");
+                    gameRun = false;
+                }
+            } else {
+                roundOfGame();
+            }
+
+        }
     }
     
 }
