@@ -6,6 +6,14 @@ public class Card {
     private String status;
     private int color;
 
+    public Card(String suit, int rank, boolean faceDown, int color, String status){
+        this.suit = suit;
+        this.rank = rank;
+        this.color = color;
+        this.status = status;
+        this.faceDown = faceDown;
+    }
+
     public String getSuit(){
         return suit;
     }
@@ -30,4 +38,12 @@ public class Card {
         return "The " + "Rank" + rank + " of " + "Suit" + suit;
     }
     
+    public void flipCard(){
+        // check faceDown status and change ascii outfit from file  
+    }
+
+    public boolean compareTo(){
+        // compare rank cards two players and return boolean
+        return true;
+    }
 }
