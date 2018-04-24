@@ -25,5 +25,9 @@ public class Card {
     public int getColor(){
         return color;
     }
+
+    public String toString(){
+        return "The " + "Rank" + rank + " of " + "Suit" + suit;
+    }
     
 }
