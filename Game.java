@@ -14,5 +14,15 @@ public class Game {
         player1Deck = deck.createDeckForPlayer(startDeck);
         player2Deck = deck.createDeckForPlayer(startDeck);
     }
+
+
+    public boolean isGameWon(){
+        // create conditions to win game
+        return true;
+    }
+
+    public evaluableRound(){
+        // create conditions to win round or fight
+    }
     
 }
