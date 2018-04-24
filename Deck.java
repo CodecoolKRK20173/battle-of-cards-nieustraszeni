@@ -7,6 +7,7 @@ public class Deck {
     private List<Card> playerHandDeck = new ArrayList<>();
     private final int HALF_SIZE_OF_DECK = 26;
 
+
     public List<Card> createNewDeck(){
         for (int suit = 1; suit < 5; suit++){
             for (int rank = 1; rank < 14; rank++){
@@ -21,6 +22,7 @@ public class Deck {
         return deck;
     }
 
+
     public List<Card> createDeckForPlayer(List<Card> deck){
         for(int i = HALF_SIZE_OF_DECK; i > 0; i--){
             playerHandDeck.add(deck(i));
@@ -30,4 +32,7 @@ public class Deck {
         return playerHandDeck;
     }
     
+    public List<Card> getPlayerHandDeck(){
+        return playerHandDeck;
+    }
 }
