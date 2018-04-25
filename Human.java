@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Human extends Player {
     public String name;
 
-    Player(String name) {
+    Human(String name) {
         this.name = name;
     }
 
