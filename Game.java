@@ -6,14 +6,17 @@ public class Game {
     private Player player2 = new Player();
     private Deck deck = new Deck();
     private List<Card> startDeck = new ArrayList<>();
-    private List<Card> player1Deck = new ArrayList<>();
-    private List<Card> player2Deck = new ArrayList<>();
+    private List<Card> player1HandDeck = new ArrayList<>();
+    private List<Card> player2HandDeck = new ArrayList<>();
+    private List<Card> player1WinPotDeck = new ArrayList<>();
+    private List<Card> player2WinPotDeck = new ArrayList<>();
+    private List<Card> battleField = new ArrayList<>();
 
 
     public dealCards(Player player1, Player player2){
         startDeck = deck.createNewDeck();
-        player1Deck = deck.createDeckForPlayer(startDeck);
-        player2Deck = deck.createDeckForPlayer(startDeck);
+        player1HandDeck = deck.createDeckForPlayer(startDeck);
+        player2HandDeck = deck.createDeckForPlayer(startDeck);
     }
 
 
@@ -25,6 +28,7 @@ public class Game {
 
     public roundOfGame(){
         // create conditions to start round
+        // check here method evaluableRound
     }
 
 
@@ -37,7 +41,7 @@ public class Game {
         boolean gameRun = true;
 
         while (gameRun){
-            if (player1Deck.size() == 0 || player2Deck.size() == 0){
+            if (player1HandDeck.size() == 0 || player2HandDeck.size() == 0){
                 if (isGameWon() == true){
                     System.out.println("You win the game!");
                     gameRun = false;
