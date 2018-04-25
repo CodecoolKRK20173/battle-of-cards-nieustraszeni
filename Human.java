@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Human extends Player {
-    private List<Card> handDeck;
-    private List<Card> winPotDeck;
     public String name;
 
     Player(String name) {
