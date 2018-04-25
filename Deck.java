@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Deck {
     private List<Card> playerHandDeck = new ArrayList<>();
-    private final int HALF_SIZE_OF_DECK = 12;
+    private static final int HALF_SIZE_OF_DECK = 12;
     private static final int RED = 1;
     private static final int BLACK = 2;
     private static final int SPADES = 1;
