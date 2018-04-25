@@ -2,18 +2,18 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Game {
-    private Player player1 = new Player();
-    private Player player2 = new Player();
+    private Player player1 = new Human("dupa");
+    private Player player2 = new Human("michal");
+    private Deck deck = new Deck();
+    private List<Card> startDeck = new ArrayList<>();
     private List<Card> player1HandDeck = new ArrayList<>();
     private List<Card> player2HandDeck = new ArrayList<>();
-    private List<Card> player1WinPotDeck = new ArrayList<>();
-    private List<Card> player2WinPotDeck = new ArrayList<>();
     private List<Card> battleField = new ArrayList<>();
 
 
     public void dealCards(Player player1, Player player2) {
-        player1HandDeck = createDeckForPlayer(startDeck);
-        player2HandDeck = createDeckForPlayer(startDeck);
+        player1HandDeck = createDeckForPlayer();
+        player2HandDeck = createDeckForPlayer();
     }
     
     public List<Card> createDeckForPlayer() {
