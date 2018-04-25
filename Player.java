@@ -1,17 +1,17 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player { 
 
-    private List<Card> handDeck;
-    private List<Card> winPotDeck;
+    private List<Card> hand = new ArrayList<>();
+    private List<Card> winPot = new ArrayList<>();
 
-    public List<Card> getHandDeck() {
-        return handDeck;
+    public List<Card> getHand() {
+        return hand;
     }
 
-
-    public List<Card> getWinPotDeck() {
-        return winPotDeck;
+    public List<Card> getWinPot() {
+        return winPot;
     }
 
 }
