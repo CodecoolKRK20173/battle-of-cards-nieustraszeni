@@ -7,8 +7,6 @@ public class Human extends Player {
 
     Player(String name) {
         this.name = name;
-        handDeck = new ArrayList<>();
-        winPotDeck = new ArrayList<>();
     }
 
 
