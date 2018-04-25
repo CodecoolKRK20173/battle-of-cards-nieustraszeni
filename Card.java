@@ -20,7 +20,6 @@ public class Card implements Comparable<Card> {
         cards.add(this);
     }
 
-
     public int compareTo(Card card) {
         if (this.getRank() == card.getRank()) {
             return EQUAL_TO;
@@ -46,12 +45,10 @@ public class Card implements Comparable<Card> {
         return color;
     }
 
-    public String toString() {
-        return "The " + "Rank" + rank + " of " + "Suit" + suit;
-    }
-
     public void flipCard() {
-        // check faceDown status and change ascii outfit from file  
+        if (isFaceDown())
+            faceDown = false;
+        faceDown = true;
     }
 
     public static List<Card> getCards() {
