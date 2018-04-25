@@ -16,17 +16,7 @@ public class Human extends Player {
     public void play() {
         System.out.println(name + " is playing...");
     }
-
-
-    public List<Card> getHandDeck() {
-        return handDeck;
-    }
-
-
-    public List<Card> getWinPotDeck() {
-        return winPotDeck;
-    }
-
+    
 
     public String getName() {
         return name;
