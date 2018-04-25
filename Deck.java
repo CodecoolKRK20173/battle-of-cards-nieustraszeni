@@ -25,15 +25,6 @@ public class Deck {
         Collections.shuffle(Card.getCards());
     }
 
-
-    public List<Card> createDeckForPlayer() {
-        for(int i = HALF_SIZE_OF_DECK; i > 0; i--){
-            playerHandDeck.add(Card.getCards().get(i));
-            Card.getCards().remove(i);
-        }
-
-        return playerHandDeck;
-    }
     
     public List<Card> getPlayerHandDeck(){
         return playerHandDeck;
