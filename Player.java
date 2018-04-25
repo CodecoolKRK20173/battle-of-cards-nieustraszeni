@@ -5,6 +5,7 @@ public abstract class Player {
 
     abstract void play();
 
+    
     public List<Card> getHandDeck() {
         return handDeck;
     }

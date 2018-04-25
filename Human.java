@@ -15,7 +15,7 @@ public class Human extends Player {
     public void play() {
         System.out.println(name + " is playing...");
     }
-    
+
 
     public String getName() {
         return name;
