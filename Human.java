@@ -12,6 +12,7 @@ public class Human extends Player {
         winPotDeck = new ArrayList<>();
     }
 
+
     public void play() {
         System.out.println(name + " is playing...");
     }
@@ -25,4 +26,10 @@ public class Human extends Player {
     public List<Card> getWinPotDeck() {
         return winPotDeck;
     }
+
+
+    public String getName() {
+        return name;
+    }
 }
+
