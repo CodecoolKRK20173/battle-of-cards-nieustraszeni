@@ -4,8 +4,6 @@ import java.util.ArrayList;
 public class Game {
     private Player player1 = new Human("dupa");
     private Player player2 = new Human("michal");
-    private Deck deck = new Deck();
-    private List<Card> startDeck = new ArrayList<>();
     private List<Card> player1HandDeck = new ArrayList<>();
     private List<Card> player2HandDeck = new ArrayList<>();
     private List<Card> battleField = new ArrayList<>();
