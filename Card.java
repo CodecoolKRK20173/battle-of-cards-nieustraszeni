@@ -20,6 +20,7 @@ public class Card implements Comparable<Card> {
         cards.add(this);
     }
 
+
     public int compareTo(Card card) {
         if (this.getRank() == card.getRank()) {
             return EQUAL_TO;
