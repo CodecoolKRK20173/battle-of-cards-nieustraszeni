@@ -11,8 +11,7 @@ public class Game {
     private List<Card> player1WinPotDeck = new ArrayList<>();
     private List<Card> player2WinPotDeck = new ArrayList<>();
     private List<Card> battleField = new ArrayList<>();
-
-
+    
     public dealCards(Player player1, Player player2){
         startDeck = deck.createNewDeck();
         player1HandDeck = deck.createDeckForPlayer(startDeck);
@@ -22,6 +21,7 @@ public class Game {
 
     public boolean isGameWon(){
         // create conditions to win game
+
         return true;
     }
 
