@@ -7,6 +7,7 @@ public class Game {
     private List<Card> player1HandDeck = new ArrayList<>();
     private List<Card> player2HandDeck = new ArrayList<>();
     private List<Card> battleField = new ArrayList<>();
+    private int HALF_SIZE_OF_DECK = 13;
 
 
     public void dealCards(Player player1, Player player2) {
@@ -15,6 +16,7 @@ public class Game {
     }
     
     public List<Card> createDeckForPlayer() {
+        List<Card> playerHandDeck = new ArrayList<>();
         for(int i = HALF_SIZE_OF_DECK; i > 0; i--) {
             playerHandDeck.add(Card.getCards().get(i));
             Card.getCards().remove(i);
