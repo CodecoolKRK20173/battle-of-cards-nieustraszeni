@@ -1,8 +1,6 @@
 public enum Suit {
-    HEARTS(1),
-    DIAMONDS(2),
-    SPADES(3),
-    CLUBS(4);
+    SPADES(1),
+    HEARTS(2);
 
     private int num;
 
