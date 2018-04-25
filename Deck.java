@@ -3,8 +3,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    private List<Card> playerHandDeck = new ArrayList<>();
-    private static final int HALF_SIZE_OF_DECK = 12;
     private static final int RED = 1;
     private static final int BLACK = 2;
     private static final int SPADES = 1;
@@ -23,10 +21,5 @@ public class Deck {
         }
 
         Collections.shuffle(Card.getCards());
-    }
-
-    
-    public List<Card> getPlayerHandDeck(){
-        return playerHandDeck;
     }
 }
