@@ -1,17 +1,19 @@
+import java.util.ArrayList;
 
 public class Card {
     private int suit;
     private int rank;
     private boolean faceDown;
-    // private String status;
     private int color;
+    private static ArrayList<Card> cards = new ArrayList<>();
 
 
-    public Card(int suit, int rank, boolean faceDown, int color){
+    public Card(int suit, int rank, int color) {
         this.suit = suit;
         this.rank = rank;
         this.color = color;
-        this.faceDown = faceDown;
+        this.faceDown = true;
+        cards.add(this);
     }
 
 
@@ -53,5 +55,8 @@ public class Card {
     public boolean compareTo(){
         // compare rank cards from two players and return boolean
         return true;
+    }
+    public static getCards() {
+        return cards;
     }
 }
