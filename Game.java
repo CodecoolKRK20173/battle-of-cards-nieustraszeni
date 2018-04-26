@@ -12,20 +12,21 @@ public class Game {
     private static final int FIRST_CARD = 0;
     private static final int FIRST_PLAYER_CARD = 0;
     private static final int SECOND_PLAYER_CARD = 1;
+    private static final int HALF_SIZE_OF_DECK = 12;
     private Card card;
-    private List<Card> battleField = new ArrayList<>();
-    private int HALF_SIZE_OF_DECK = 12;
+    private List<Card> battleField;
     private Player firstPlayer;
     private Player secondPlayer;
-    private boolean isGameWon;
     private Card firstPlayerCard;
     private Card secondPlayerCard;
     private boolean endRound;
+    private int firstPlayerCardWhenDraw;
+    private int secondPlayerCardWhenDraw;
 
     public Game() {
-        this.isGameWon = true;
-        this.firstPlayer = new Human("dupa");
-        this.secondPlayer = new Human("michal");
+        this.firstPlayer = new Human("Player 1");
+        this.secondPlayer = new Human("Player 2");
+        this.battleField = new ArrayList<>();
         createNewDeck();
         dealCards();
     }
