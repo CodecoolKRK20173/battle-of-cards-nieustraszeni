@@ -6,6 +6,8 @@ public abstract class Player {
     private List<Card> hand = new ArrayList<>();
     private List<Card> winPot = new ArrayList<>();
 
+    abstract String getName();
+
     public List<Card> getHand() {
         return hand;
     }

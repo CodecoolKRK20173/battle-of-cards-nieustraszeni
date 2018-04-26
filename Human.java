@@ -9,6 +9,8 @@ public class Human extends Player {
         this.name = name;
     }
 
+
+    @Override
     public String getName() {
         return name;
     }
