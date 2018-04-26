@@ -229,14 +229,17 @@ public class Game {
 
 
     public void playGame() {
+        int score = 0;
         playerShuffle();
         while (isGameWon()) {
             dragCardsFromPlayers();
             evaluateRound();
+            score++;
             pressEnterToContinue();
 
         }
         View.printGame(firstPlayer, secondPlayer, battleField);
+        System.out.printf("Your highscore is %d%n", score);
     }
 
     private void createNewDeck() {
