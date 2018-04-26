@@ -13,7 +13,7 @@ public class View {
     Player player1 = new Human("pszemek polczag");
     Card card = new Card(0, 0, 0);
 
-    private static void printHand(Player player) {
+    public static void printHand(Player player) {
         List<Card> hand = player.getHand();
         System.out.println("Your hand: ");
         for (Card card : hand) {
