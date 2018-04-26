@@ -1,8 +1,10 @@
 import java.util.List;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game {
+    Scanner sc = new Scanner(System.in);
     private static final int RED = 1;
     private static final int BLACK = 2;
     private static final int SPADES = 1;
