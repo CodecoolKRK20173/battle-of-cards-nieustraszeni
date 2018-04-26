@@ -55,6 +55,7 @@ public class Game {
 
     private void refillFirstPlayerHand() {
         if (firstPlayer.isHandEmpty() && firstPlayer.getWinPot().size() != 0) {
+            Collections.shuffle(firstPlayer.getWinPot());
             for (Card card : firstPlayer.getWinPot()) {
                 firstPlayer.getHand().add(card);
             }
@@ -64,6 +65,7 @@ public class Game {
 
     private void refillSecondPlayerHand() {
         if (secondPlayer.isHandEmpty() && secondPlayer.getWinPot().size() != 0) {
+            Collections.shuffle(secondPlayer.getWinPot());
             for (Card card : secondPlayer.getWinPot()) {
                 secondPlayer.getHand().add(card);
             }
@@ -166,15 +168,12 @@ public class Game {
     private void evaluateRound() {
         endRound = true;
         while (endRound) {
+            View.printGame(firstPlayer, secondPlayer, battleField);
             int result = 0;
-            if (battleField.size() == 2) {
-                result = battleField.get(FIRST_PLAYER_CARD).compareTo(battleField.get(SECOND_PLAYER_CARD));
-            } else if (battleField.size() > 2) {
-                firstPlayerCardWhenDraw = battleField.size() - 2;
-                secondPlayerCardWhenDraw = battleField.size() - 1;
-                result = battleField.get(firstPlayerCardWhenDraw).compareTo(battleField.get(secondPlayerCardWhenDraw));
-            }
-
+            firstPlayerCardWhenDraw = battleField.size() - 2;
+            secondPlayerCardWhenDraw = battleField.size() - 1;
+            result = battleField.get(firstPlayerCardWhenDraw).compareTo(battleField.get(secondPlayerCardWhenDraw));
+        
             switch (result) {
                 case 1:
                     playerWinRound(firstPlayer);
@@ -205,19 +204,14 @@ public class Game {
 
 
     public void playGame() {
+        
         while (isGameWon()) {
-<<<<<<< HEAD
-=======
-            View.printGame(firstPlayer, secondPlayer, battleField);
-            System.out.println("\n");
-            System.out.println(firstPlayer.getHand());
-            System.out.println(secondPlayer.getHand());
->>>>>>> b8181ab48f88e93a3fa26315ca0c0848198e7eb8
             dragCardsFromPlayers();
             evaluateRound();
             pressEnterToContinue();
 
         }
+        View.printGame(firstPlayer, secondPlayer, battleField);
     }
 
     private void createNewDeck() {
