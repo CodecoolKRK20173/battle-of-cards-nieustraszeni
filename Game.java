@@ -1,121 +1,178 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Game {
-    private Player player1 = new Human("dupa");
-    private Player player2 = new Human("michal");
-    private List<Card> player1HandDeck = new ArrayList<>();
-    private List<Card> player2HandDeck = new ArrayList<>();
+    private static final int RED = 1;
+    private static final int BLACK = 2;
+    private static final int SPADES = 1;
+    private static final int HEARTS = 2;
+    private static final int FIRST_CARD = 0;
+    private static final int FIRST_PLAYER_CARD = 0;
+    private static final int SECOND_PLAYER_CARD = 1;
+    private Card card;
     private List<Card> battleField = new ArrayList<>();
-    private int HALF_SIZE_OF_DECK = 13;
+    private int HALF_SIZE_OF_DECK = 12;
+    private Player firstPlayer;
+    private Player secondPlayer;
+    private boolean isGameWon;
+    private Card firstPlayerCard;
+    private Card secondPlayerCard;
+    private boolean endRound;
 
-
-    public void dealCards(Player player1, Player player2) {
-        player1HandDeck = createDeckForPlayer();
-        player2HandDeck = createDeckForPlayer();
+    public Game() {
+        this.isGameWon = true;
+        this.firstPlayer = new Human("dupa");
+        this.secondPlayer = new Human("michal");
+        createNewDeck();
+        dealCards();
     }
-    
-    public List<Card> createDeckForPlayer() {
-        List<Card> playerHandDeck = new ArrayList<>();
-        for(int i = HALF_SIZE_OF_DECK; i > 0; i--) {
-            playerHandDeck.add(Card.getCards().get(i));
+
+    private void dealCards() {
+        for (int i = HALF_SIZE_OF_DECK; i > 0; i--) {
+            firstPlayer.getHand().add(Card.getCards().get(i));
             Card.getCards().remove(i);
         }
+        for (Card card : Card.getCards()) {
+            secondPlayer.getHand().add(card);
 
-        return playerHandDeck;
-    }
-    
-        
-    public boolean isGameWon() {
-        // create conditions to win game
-
-        return true;
+        }
+        Card.getCards().clear();
     }
 
-
-    public void roundOfGame() {
-        // create conditions to start round
-        // check here method evaluableRound
-    }
-
-    public void dragCardToBattleField() {
-        int firstElement = 0;
-
-        battleField.add(player1HandDeck.get(firstElement));
-        battleField.add(player2HandDeck.get(firstElement));
-
-        player1HandDeck.remove(firstElement);
-        player2HandDeck.remove(firstElement);
-    }
-
-
-    public void dragCardWhenDraw() {
-        System.out.println("Round draw");
-        for (int i = 0; i < 2; i++)
-            dragCardToBattleField();
-    }
-
-
-    public void runFightMode() {
-        while (battleField.size() != 0){
-            int lastCardIndex = battleField.size() - 1;
-            int beforeLastCardIndex = battleField.size() - 2;
-
-            if (battleField.size() == 2){
-                if (battleField.get(0).getRank() > battleField.get(1).getRank()) {
-                    playerWinRound(player1HandDeck);
-                    
-                } else if (battleField.get(0).getRank() < battleField.get(1).getRank()) {
-                    playerWinRound(player2HandDeck);
-
-                } else {    
-                    dragCardWhenDraw();
-
-                }
-            } else {
-                if (battleField.get(beforeLastCardIndex).getRank() > battleField.get(lastCardIndex).getRank()) {
-                    playerWinRound(player1HandDeck);
-                } else if (battleField.get(beforeLastCardIndex).getRank() < battleField.get(lastCardIndex).getRank()) {
-                    playerWinRound(player2HandDeck);
-                } else {
-                    dragCardWhenDraw();
-                }
-            }
+    private void isGameWon() {
+        if (firstPlayer.isHandEmpty() && firstPlayer.getWinPot().isEmpty()
+                || secondPlayer.isHandEmpty() && secondPlayer.getWinPot().isEmpty()) {
+            isGameWon = false;
+        } else {
+            isGameWon = true;
         }
     }
 
+    private void refillHandsIfEmpty() {
+        if (firstPlayer.isHandEmpty() && firstPlayer.getWinPot().size() != 0) {
+            for (Card card : firstPlayer.getWinPot()) {
+                firstPlayer.getHand().add(card);
+            }
+            firstPlayer.getWinPot().clear();
+        }
+        if (secondPlayer.isHandEmpty() && secondPlayer.getWinPot().size() != 0) {
+            for (Card card : secondPlayer.getWinPot()) {
+                secondPlayer.getHand().add(card);
+            }
+            secondPlayer.getWinPot().clear();
+        }
+    }
 
-    public void playerWinRound(List<Card> potDeck) {
+    private void takeFaceUpCards() {
+        firstPlayerCard = firstPlayer.getHand().get(FIRST_CARD);
+        firstPlayerCard.flipCard();
+        secondPlayerCard = secondPlayer.getHand().get(FIRST_CARD);
+        secondPlayerCard.flipCard();
+    }
 
-        for (int i = 0; i < battleField.size(); i++) {
-            potDeck.add(battleField.get(i));
+    private void takeFaceDownCards() {
+        firstPlayerCard = firstPlayer.getHand().get(FIRST_CARD);
+        secondPlayerCard = secondPlayer.getHand().get(FIRST_CARD);
+    }
+
+    private void addCardsToBattlefield() {
+        battleField.add(firstPlayerCard);
+        battleField.add(secondPlayerCard);
+        firstPlayer.getHand().remove(FIRST_CARD);
+        secondPlayer.getHand().remove(FIRST_CARD);
+
+    }
+
+    private void dragCardsFromPlayers() {
+        takeFaceUpCards();
+        addCardsToBattlefield();
+    }
+
+    private void handleDraw() {
+        refillHandsIfEmpty();
+        takeFaceDownCards();
+        addCardsToBattlefield();
+        refillHandsIfEmpty();
+        takeFaceUpCards();
+        addCardsToBattlefield();
+        refillHandsIfEmpty();
+        evaluateRound();
+    }
+
+    private void playerWinRound(Player player) {
+
+        for (Card card : battleField) {
+            if (!card.isFaceDown()) {
+                card.flipCard();
+                player.getWinPot().add(card);
+            }
+            player.getWinPot().add(card);
         }
         battleField.clear();
     }
-
-
-    public void evaluableRound() {
-        // create conditions to win round or fight
-    }
-
-
-    public void playGame() {
-        boolean gameRun = true;
-
-        while (gameRun){
-            if (player1HandDeck.size() == 0 || player2HandDeck.size() == 0) {
-                if (isGameWon()) {
-                    System.out.println("You win the game!");
-                    gameRun = false;
-                } else {
-                    System.out.println("You lose the game!");
-                    gameRun = false;
-                }
-            } else {
-                roundOfGame();
-            }
-
+    private void isRoundGoOn() {
+        if (isGameWon = true) {
+            endRound = true;
+        } else {
+            endRound = false;
         }
     }
-    
+
+    private void evaluateRound() {
+       
+        isRoundGoOn();
+        while (endRound) {
+            int result = 0;
+            if (battleField.size() == 2) {
+                result = battleField.get(FIRST_PLAYER_CARD).compareTo(battleField.get(SECOND_PLAYER_CARD));
+            } else {
+                result = battleField.get(battleField.size() - 2).compareTo(battleField.get(battleField.size() - 1));
+            }
+
+            switch (result) {
+            case 1:
+                playerWinRound(firstPlayer);
+                break;
+            case 0:
+                if (firstPlayer.getHand().size() + firstPlayer.getWinPot().size() == 2 
+                || secondPlayer.getHand().size() + secondPlayer.getWinPot().size() == 2) {
+                    isGameWon = false;
+                    break;
+                   
+                } else {
+                    handleDraw();
+                    break;
+                }
+                
+            case -1:
+                playerWinRound(secondPlayer);
+                break;
+            }
+            endRound = false;
+
+        }
+
+    }
+
+    public void playGame() {
+        while (isGameWon) {
+            dragCardsFromPlayers();
+            evaluateRound();
+        }
+    }
+
+    private void createNewDeck() {
+        for (int suit = 1; suit < 5; suit++) {
+            for (int rank = 1; rank < 7; rank++) {
+                if (suit == SPADES || suit == HEARTS)
+                    card = new Card(suit, rank, RED);
+                else
+                    card = new Card(suit, rank, BLACK);
+            }
+        }
+
+        Collections.shuffle(Card.getCards());
+    }
+
 }
