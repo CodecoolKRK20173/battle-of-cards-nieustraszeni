@@ -13,5 +13,11 @@ public abstract class Player {
     public List<Card> getWinPot() {
         return winPot;
     }
+    public boolean isHandEmpty() {
+        return hand.isEmpty();
+    }
+    public boolean isWinPotEmpty() {
+        return winPot.isEmpty();
+    }
 
 }
