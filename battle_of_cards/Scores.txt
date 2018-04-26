@@ -1,0 +1,12 @@
+Player 2, 206
+Player 2, 168
+Player 1, 95
+Player 2, 85
+Player 1, 70
+Player 1, 48
+Player 1, 38
+Player 1, 20
+Player 1, 18
+Player 1, 17
+Player 1, 16
+Player 1, 10
