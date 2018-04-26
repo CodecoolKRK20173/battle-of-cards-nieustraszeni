@@ -43,28 +43,42 @@ public class Game {
         Card.getCards().clear();
     }
 
-    private void isGameWon() {
-        if (firstPlayer.isHandEmpty() && firstPlayer.getWinPot().isEmpty()
-                || secondPlayer.isHandEmpty() && secondPlayer.getWinPot().isEmpty()) {
-            isGameWon = false;
+    private boolean isGameWon() {
+        if (firstPlayerCards() == 0 || secondPlayerCards() == 0) {
+            return false;
         } else {
-            isGameWon = true;
+            return true;
         }
     }
 
-    private void refillHandsIfEmpty() {
+    private void refillFirstPlayerHand() {
         if (firstPlayer.isHandEmpty() && firstPlayer.getWinPot().size() != 0) {
             for (Card card : firstPlayer.getWinPot()) {
                 firstPlayer.getHand().add(card);
             }
             firstPlayer.getWinPot().clear();
         }
+    }
+
+    private void refillSecondPlayerHand() {
         if (secondPlayer.isHandEmpty() && secondPlayer.getWinPot().size() != 0) {
             for (Card card : secondPlayer.getWinPot()) {
                 secondPlayer.getHand().add(card);
             }
             secondPlayer.getWinPot().clear();
         }
+    }
+
+    private void refillHandsIfEmpty() {
+        refillFirstPlayerHand();
+        refillSecondPlayerHand();
+
+    }
+    private int firstPlayerCards() {
+        return firstPlayer.getHand().size() + firstPlayer.getWinPot().size();
+    }
+    private int secondPlayerCards() {
+        return secondPlayer.getHand().size() + secondPlayer.getWinPot().size();
     }
 
     private void takeFaceUpCards() {
@@ -88,8 +102,13 @@ public class Game {
     }
 
     private void dragCardsFromPlayers() {
-        takeFaceUpCards();
-        addCardsToBattlefield();
+        try {
+            takeFaceUpCards();
+            addCardsToBattlefield();
+        } catch (IndexOutOfBoundsException e) {
+            whoWon();
+        }
+
     }
 
     private void handleDraw() {
@@ -114,43 +133,61 @@ public class Game {
         }
         battleField.clear();
     }
-    private void isRoundGoOn() {
-        if (isGameWon = true) {
-            endRound = true;
+
+    private void whoWon() {
+        if (firstPlayerCards() < secondPlayerCards()) {
+            for (Card card : firstPlayer.getHand()) {
+                secondPlayer.getHand().add(card);
+            }
+            for (Card card : firstPlayer.getWinPot()) {
+                secondPlayer.getWinPot().add(card);
+            }
+            playerWinRound(secondPlayer);
+            firstPlayer.getHand().clear();
+            firstPlayer.getWinPot().clear();
+
         } else {
-            endRound = false;
+            for (Card card : secondPlayer.getHand()) {
+                firstPlayer.getHand().add(card);
+            }
+            for (Card card : secondPlayer.getWinPot()) {
+                firstPlayer.getWinPot().add(card);
+            }
+            playerWinRound(firstPlayer);
+            secondPlayer.getHand().clear();
+            secondPlayer.getWinPot().clear();
+
         }
     }
 
     private void evaluateRound() {
-       
-        isRoundGoOn();
+        endRound = true;
         while (endRound) {
             int result = 0;
             if (battleField.size() == 2) {
                 result = battleField.get(FIRST_PLAYER_CARD).compareTo(battleField.get(SECOND_PLAYER_CARD));
-            } else {
-                result = battleField.get(battleField.size() - 2).compareTo(battleField.get(battleField.size() - 1));
+            } else if (battleField.size() > 2) {
+                firstPlayerCardWhenDraw = battleField.size() - 2;
+                secondPlayerCardWhenDraw = battleField.size() - 1;
+                result = battleField.get(firstPlayerCardWhenDraw).compareTo(battleField.get(secondPlayerCardWhenDraw));
             }
 
             switch (result) {
-            case 1:
-                playerWinRound(firstPlayer);
-                break;
-            case 0:
-                if (firstPlayer.getHand().size() + firstPlayer.getWinPot().size() == 2 
-                || secondPlayer.getHand().size() + secondPlayer.getWinPot().size() == 2) {
-                    isGameWon = false;
+                case 1:
+                    playerWinRound(firstPlayer);
                     break;
-                   
-                } else {
-                    handleDraw();
+                case 0:
+                    if (firstPlayerCards() > 2 && secondPlayerCards() > 2) {
+                        handleDraw();
+                        break;
+                    } else {
+                        whoWon();
+                        break;
+                    }
+
+                case -1:
+                    playerWinRound(secondPlayer);
                     break;
-                }
-                
-            case -1:
-                playerWinRound(secondPlayer);
-                break;
             }
             endRound = false;
 
@@ -158,11 +195,26 @@ public class Game {
 
     }
 
+
+    private void pressEnterToContinue() {
+        sc.nextLine();
+    }
+
+
     public void playGame() {
-        while (isGameWon) {
+        while (isGameWon()) {
+            System.out.println("TABLE: " + battleField.size());
+            System.out.println("FIRST PLAYER HAND/WINPOT: " + firstPlayer.getHand().size() + "//" + firstPlayer.getWinPot().size());
+            System.out.println("SECOND PLAYER HAND/WINPOT: " + secondPlayer.getHand().size() + "//" + secondPlayer.getWinPot().size());
             dragCardsFromPlayers();
             evaluateRound();
+            pressEnterToContinue();
+
         }
+        System.out.println("KONIECCCCCCCCCCCCCCCCCC");
+        System.out.println("TABLE: " + battleField.size());
+        System.out.println("FIRST PLAYER HAND/WINPOT: " + firstPlayer.getHand().size() + "//" + firstPlayer.getWinPot().size());
+        System.out.println("SECOND PLAYER HAND/WINPOT: " + secondPlayer.getHand().size() + "//" + secondPlayer.getWinPot().size());
     }
 
     private void createNewDeck() {
@@ -177,5 +229,6 @@ public class Game {
 
         Collections.shuffle(Card.getCards());
     }
+
 
 }
