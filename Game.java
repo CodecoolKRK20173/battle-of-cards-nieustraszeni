@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 
 public class Game {
     Scanner sc = new Scanner(System.in);
@@ -202,9 +203,35 @@ public class Game {
         sc.nextLine();
     }
 
+    private void playerShuffle(){
+        View.printHand(firstPlayer);
+        System.out.println("Do you want shuffle your deck? (press 0)");
+
+        switch (takeInput()) {
+            case 0:
+                Collections.shuffle(firstPlayer.getHand());
+                break;
+        
+            default:
+                break;
+        }
+    }
+
+    private int takeInput(){
+        Scanner sc = new Scanner(System.in);
+        int option = 1;
+        try {
+            option = sc.nextInt();
+        } catch (InputMismatchException e){
+            takeInput();
+        }
+
+        return option;
+    }
+
 
     public void playGame() {
-        
+        playerShuffle();
         while (isGameWon()) {
             dragCardsFromPlayers();
             evaluateRound();
