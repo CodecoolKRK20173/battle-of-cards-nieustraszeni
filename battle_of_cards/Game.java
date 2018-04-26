@@ -218,8 +218,9 @@ public class Game {
 
 
     private void playerShuffle(){
+        System.out.println();
         View.printHand(firstPlayer);
-        System.out.println("Do you want shuffle your deck? (press 0)");
+        System.out.println("\n\nDo you want shuffle your deck? (press 0)");
 
         switch (takeInput()) {
             case 0:
@@ -265,7 +266,7 @@ public class Game {
 
     private void endGame(Player player, int score) {
         highscore.readHighscoreFromFile(fileName);
-        System.out.printf(player.getName() +"! Your highscore is %d%n", score);
+        System.out.printf("\n" +player.getName() +"! Your highscore is %d%n", score);
         highscore.addScoreToList(new Score(player.getName(), score));
         highscore.sortListByPoints();
         writeScoreToFile();
