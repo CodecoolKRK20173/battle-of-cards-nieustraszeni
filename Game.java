@@ -9,6 +9,8 @@ public class Game {
     private static final int BLACK = 2;
     private static final int SPADES = 1;
     private static final int HEARTS = 2;
+    private static final int CLUBS = 3;
+    private static final int DIAMONDS = 4;
     private static final int FIRST_CARD = 0;
     private static final int FIRST_PLAYER_CARD = 0;
     private static final int SECOND_PLAYER_CARD = 1;
@@ -203,9 +205,10 @@ public class Game {
 
     public void playGame() {
         while (isGameWon()) {
-            System.out.println("TABLE: " + battleField.size());
-            System.out.println("FIRST PLAYER HAND/WINPOT: " + firstPlayer.getHand().size() + "//" + firstPlayer.getWinPot().size());
-            System.out.println("SECOND PLAYER HAND/WINPOT: " + secondPlayer.getHand().size() + "//" + secondPlayer.getWinPot().size());
+            View.printGame(firstPlayer, secondPlayer, battleField);
+            System.out.println("\n");
+            System.out.println(firstPlayer.getHand());
+            System.out.println(secondPlayer.getHand());
             dragCardsFromPlayers();
             evaluateRound();
             pressEnterToContinue();
@@ -219,11 +222,11 @@ public class Game {
 
     private void createNewDeck() {
         for (int suit = 1; suit < 5; suit++) {
-            for (int rank = 1; rank < 7; rank++) {
-                if (suit == SPADES || suit == HEARTS)
+            for (int rank = 9; rank < 15; rank++) {
+                if (suit == DIAMONDS || suit == HEARTS){
                     card = new Card(suit, rank, RED);
-                else
-                    card = new Card(suit, rank, BLACK);
+                }else if(suit == SPADES || suit == CLUBS){
+                    card = new Card(suit, rank, BLACK);}
             }
         }
 
