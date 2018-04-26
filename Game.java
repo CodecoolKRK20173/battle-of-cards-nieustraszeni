@@ -132,6 +132,7 @@ public class Game {
             player.getWinPot().add(card);
         }
         battleField.clear();
+        refillHandsIfEmpty();
     }
 
     private void whoWon() {
@@ -203,18 +204,11 @@ public class Game {
 
     public void playGame() {
         while (isGameWon()) {
-            System.out.println("TABLE: " + battleField.size());
-            System.out.println("FIRST PLAYER HAND/WINPOT: " + firstPlayer.getHand().size() + "//" + firstPlayer.getWinPot().size());
-            System.out.println("SECOND PLAYER HAND/WINPOT: " + secondPlayer.getHand().size() + "//" + secondPlayer.getWinPot().size());
             dragCardsFromPlayers();
             evaluateRound();
             pressEnterToContinue();
 
         }
-        System.out.println("KONIECCCCCCCCCCCCCCCCCC");
-        System.out.println("TABLE: " + battleField.size());
-        System.out.println("FIRST PLAYER HAND/WINPOT: " + firstPlayer.getHand().size() + "//" + firstPlayer.getWinPot().size());
-        System.out.println("SECOND PLAYER HAND/WINPOT: " + secondPlayer.getHand().size() + "//" + secondPlayer.getWinPot().size());
     }
 
     private void createNewDeck() {
