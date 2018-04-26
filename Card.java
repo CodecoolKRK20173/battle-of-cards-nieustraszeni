@@ -50,6 +50,9 @@ public class Card implements Comparable<Card> {
             faceDown = false;
         faceDown = true;
     }
+    public String toString() {
+        return "The " + "Rank" + rank + " of " + "Suit" + suit;
+    }
 
     public static List<Card> getCards() {
         return cards;
