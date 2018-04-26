@@ -13,8 +13,6 @@ public class Game {
     private static final int CLUBS = 3;
     private static final int DIAMONDS = 4;
     private static final int FIRST_CARD = 0;
-    private static final int FIRST_PLAYER_CARD = 0;
-    private static final int SECOND_PLAYER_CARD = 1;
     private static final int HALF_SIZE_OF_DECK = 12;
     private Card card;
     private List<Card> battleField;
