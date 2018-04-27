@@ -37,6 +37,23 @@ public class View {
     }
 
 
+   private static void printPot(Player player) {
+       List<Card> pot = player.getWinPot();
+       System.out.println("Your win pot: ");
+       for (Card card : pot) {
+          try {
+           String cardMiniatureDir = "cards-unicode/CardBack.txt";
+            File loadCardMiniature = new File(cardMiniatureDir);
+             Scanner cardMiniature = new Scanner(loadCardMiniature);
+             String reverse = cardMiniature.nextLine();
+               System.out.print(" " + YELLOW_PREFIX + reverse + RESET_COLOR);
+             cardMiniature.close();
+           } catch (FileNotFoundException error) {
+               System.out.println("Card not found!");
+           }
+        }}
+
+
     private static List<String> cardToList(Card card) {
         String line;
         List<String> cardLineList = new ArrayList<String>();
