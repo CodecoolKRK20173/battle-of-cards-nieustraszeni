@@ -1,7 +1,4 @@
-
 import java.util.Scanner;
-import java.io.FileNotFoundException;
-import java.io.File;
 import java.util.List;
 import java.io.*;
 import java.util.Arrays;
@@ -9,15 +6,16 @@ import java.util.ArrayList;
 
 public class View {
 
-    private static final String RED_PREFIX = "\u001B[31m";
-    private static final String BLACK_PREFIX = "\u001B[34m";
-    private static final String YELLOW_PREFIX = "\u001B[33m";
-    private static final String RESET_COLOR = "\u001B[0m";
+    public static final String RED_PREFIX = "\u001B[31m";
+    public static final String BLACK_PREFIX = "\u001B[34m";
+    public static final String YELLOW_PREFIX = "\u001B[33m";
+    public static final String RESET_COLOR = "\u001B[0m";
     private static List<List<String>> battleCardLine;
+    private static final String CLEAR = "\033[H\033[2J";
 
-
-    protected static void printHand(Player player) {
+    public static void printHand(Player player) {
         List<Card> hand = player.getHand();
+        System.out.println(player.getName() + "r hand: ");
         for (Card card : hand) {
             try {
                 String cardMiniatureDir = "cards-unicode/" + card.getRank() + "-" + card.getSuit() + ".txt";
@@ -29,6 +27,19 @@ public class View {
                 } else {
                     System.out.print(" " + BLACK_PREFIX + printableCardMiniature + RESET_COLOR);
                 }
+                cardMiniature.close();
+            } catch (FileNotFoundException error) {
+                System.out.println("Card not found!");
+            }
+        }
+        System.out.println("\n" + player.getName() + "r pot: ");
+        List<Card> pot = player.getWinPot();
+        for (int i = 0; i < pot.size(); i++) {
+            try {
+                File loadCardMiniature = new File("cards-unicode/CardBack.txt");
+                Scanner cardMiniature = new Scanner(loadCardMiniature);
+                String reverse = cardMiniature.nextLine();
+                System.out.print(" " + YELLOW_PREFIX + reverse + RESET_COLOR);
                 cardMiniature.close();
             } catch (FileNotFoundException error) {
                 System.out.println("Card not found!");
@@ -79,8 +90,7 @@ public class View {
         return cardLineList;
     }
 
-
-    protected static List<List<String>> addCard(List<Card> battlefield) {
+    public static List<List<String>> addCard(List<Card> battlefield) {
         battleCardLine = new ArrayList<>();
         if (!battlefield.isEmpty()) {
             Card firstPlayerCard = battlefield.get(battlefield.size() - 2);
@@ -94,8 +104,7 @@ public class View {
         return battleCardLine;
     }
 
-
-    protected static void printBattlefield(List<Card> battlefield) {
+    public static void printBattlefield(List<Card> battlefield) {
         for (List<String> cardLine : addCard(battlefield)) {
             for (String card : cardLine) {
                 System.out.println(card);
@@ -104,10 +113,23 @@ public class View {
 
     }
 
-
-    protected static void printEnemyHand(Player player) {
+    public static void printEnemyHand(Player player) {
         List<Card> hand = player.getHand();
+        System.out.println(player.getName() + " hand: ");
         for (int i = 0; i < hand.size(); i++) {
+            try {
+                File loadCardMiniature = new File("cards-unicode/CardBack.txt");
+                Scanner cardMiniature = new Scanner(loadCardMiniature);
+                String reverse = cardMiniature.nextLine();
+                System.out.print(" " + YELLOW_PREFIX + reverse + RESET_COLOR);
+                cardMiniature.close();
+            } catch (FileNotFoundException error) {
+                System.out.println("Card not found!");
+            }
+        }
+        System.out.println("\n" + player.getName() + " pot: ");
+        List<Card> pot = player.getWinPot();
+        for (int i = 0; i < pot.size(); i++) {
             try {
                 File loadCardMiniature = new File("cards-unicode/CardBack.txt");
                 Scanner cardMiniature = new Scanner(loadCardMiniature);
@@ -120,8 +142,8 @@ public class View {
         }
     }
 
-
-    protected static void printGame(Player firstPlayer, Player secondPlayer, List<Card> battlefield) {
+    public static void printGame(Player firstPlayer, Player secondPlayer, List<Card> battlefield) {
+        System.out.println(CLEAR);
         printEnemyHand(secondPlayer);
         System.out.println("\n");
         printBattlefield(battlefield);

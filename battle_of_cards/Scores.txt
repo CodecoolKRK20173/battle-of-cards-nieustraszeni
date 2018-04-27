@@ -3,13 +3,26 @@ Player 2, 168
 Player 1, 95
 Player 2, 85
 Player 1, 70
+<<<<<<< HEAD
 Player 1, 67
+=======
+You, 58
+>>>>>>> 204d02bafb3bd8bbc9bb3454ab642b9895af76d1
 Player 1, 48
+Enemy, 42
 Player 1, 38
 Player 2, 30
+Player 1, 30
+Player 2, 28
 Player 2, 24
+<<<<<<< HEAD
 Player 1, 22
 Player 2, 21
+=======
+Player 2, 24
+You, 24
+You, 21
+>>>>>>> 204d02bafb3bd8bbc9bb3454ab642b9895af76d1
 Player 1, 20
 Player 1, 20
 Player 1, 18
