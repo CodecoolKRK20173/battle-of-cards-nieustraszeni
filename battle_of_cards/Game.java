@@ -266,7 +266,7 @@ public class Game {
 
     private void endGame(Player player, int score) {
         highscore.readHighscoreFromFile(fileName);
-        System.out.printf("\n" +player.getName() +"! Your highscore is %d%n", score);
+        System.out.printf("\n" + player.getName() + " won!\n Your highscore is %d%n", score);
         highscore.addScoreToList(new Score(player.getName(), score));
         highscore.sortListByPoints();
         writeScoreToFile();
