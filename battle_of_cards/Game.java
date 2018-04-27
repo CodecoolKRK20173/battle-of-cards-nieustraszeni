@@ -23,8 +23,8 @@ public class Game {
 
     protected Game() {
         this.highscore = new Highscore();
-        this.firstPlayer = new Human("Player 1");
-        this.secondPlayer = new Human("Player 2");
+        this.firstPlayer = new Human("You");
+        this.secondPlayer = new Human("Enemy");
         this.battleField = new ArrayList<>();
         createNewDeck();
         dealCards();
@@ -92,6 +92,7 @@ public class Game {
 
 
     private void takeFaceUpCards() {
+        refillHandsIfEmpty();
         firstPlayerCard = firstPlayer.getHand().get(FIRST_CARD);
         firstPlayerCard.flipCard();
         secondPlayerCard = secondPlayer.getHand().get(FIRST_CARD);
@@ -100,6 +101,7 @@ public class Game {
 
 
     private void takeFaceDownCards() {
+        refillHandsIfEmpty();
         firstPlayerCard = firstPlayer.getHand().get(FIRST_CARD);
         secondPlayerCard = secondPlayer.getHand().get(FIRST_CARD);
     }
@@ -124,13 +126,10 @@ public class Game {
 
 
     private void handleDraw() {
-        refillHandsIfEmpty();
         takeFaceDownCards();
         addCardsToBattlefield();
-        refillHandsIfEmpty();
         takeFaceUpCards();
         addCardsToBattlefield();
-        refillHandsIfEmpty();
         evaluateRound();
     }
 
@@ -181,7 +180,7 @@ public class Game {
 
     private void evaluateRound() {
         endRound = true;
-
+        refillHandsIfEmpty();
         while (endRound) {
             View.printGame(firstPlayer, secondPlayer, battleField);
             int result = 0;
@@ -266,7 +265,7 @@ public class Game {
 
     private void endGame(Player player, int score) {
         highscore.readHighscoreFromFile(fileName);
-        System.out.printf("\n" + player.getName() + " won!\n Your highscore is %d%n", score);
+        System.out.printf("\n\n" + player.getName() + " won!\n\nYour highscore is %d%n", score);
         highscore.addScoreToList(new Score(player.getName(), score));
         highscore.sortListByPoints();
         writeScoreToFile();
